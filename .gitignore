@@ -1,4 +1,4 @@
 unit_testing/
 groqkey
-.envn
+.env
 node_modules/
