@@ -1,0 +1,58 @@
+
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <style>
+      .tree ul {
+        padding-left: 20px;
+      }
+      .tree li {
+        list-style-type: none;
+        position: relative;
+        padding: 10px 5px 0 5px;
+      }
+      .tree li::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -10px;
+        width: 10px;
+        height: 1px;
+        background: #ccc;
+      }
+      .tree li::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -10px;
+        width: 1px;
+        height: 100%;
+        background: #ccc;
+      }
+      .tree li:last-child::after {
+        height: 10px;
+      }
+      .tree > ul > li::before, 
+      .tree > ul > li::after {
+        border: 0;
+      }
+      .tree li a {
+        display: inline-block;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #333;
+      }
+      .tree li a:hover {
+        background: #f8f8f8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tree">
+      <ul><li><a href="#">Cooking</a><ul><li><a href="#">Kitchen Safety</a><ul><li><a href="#">Basic Cooking Techniques</a><ul><li><a href="#">Kitchen Safety In Basic Cooking Techniques</a></li><li><a href="#">Kitchen Tool Identification</a></li><li><a href="#">Meal Planning In Basic Cooking Techniques</a></li></ul></li><li><a href="#">Kitchen Tool Handling</a><ul><li><a href="#">Proper Hand Placement on Handles</a></li><li><a href="#">Basic Kitchen Tool Identification</a></li><li><a href="#">Safe Kitchen Environment Setup In Kitchen Tool Handling</a></li></ul></li><li><a href="#">Food Storage Methods In Kitchen Safety</a><ul><li><a href="#">Understanding Kitchen Hazards</a></li><li><a href="#">Basic Food Handling Techniques</a></li><li><a href="#">Recognizing Food Spoilage In Food Storage Methods In Kitchen Safety</a></li></ul></li></ul></li><li><a href="#">Food Handling In Cooking</a><ul><li><a href="#">Kitchen Safety Procedures</a><ul><li><a href="#">Basic Kitchen Layout</a></li><li><a href="#">Common Kitchen Hazards In Kitchen Safety Procedures</a></li><li><a href="#">Proper Food Handling</a></li></ul></li><li><a href="#">Food Storage Methods In Food Handling In Cooking</a><ul><li><a href="#">Understanding Food Safety Principles</a></li><li><a href="#">Knowledge of Kitchen Sanitation Methods</a></li><li><a href="#">Familiarity with Food Handling Equipment In Food Storage Methods In Food Handling In Cooking</a></li></ul></li><li><a href="#">Personal Hygiene In Food Handling In Cooking</a><ul><li><a href="#">Hand Washing Techniques</a></li><li><a href="#">Food Safety Basics In Personal Hygiene In Food Handling In Cooking</a></li><li><a href="#">Proper Use Of Cleaning Supplies In Food Handling</a></li></ul></li></ul></li><li><a href="#">Meal Planning</a><ul><li><a href="#">Understanding Nutrition Basics</a><ul><li><a href="#">Understanding Macronutrients</a></li><li><a href="#">Recognizing Food Groups</a></li><li><a href="#">Familiarity with Caloric Intake In Understanding Nutrition Basics</a></li></ul></li><li><a href="#">Creating a Grocery Budget</a><ul><li><a href="#">Tracking Monthly Expenses</a></li><li><a href="#">Understanding Household Income</a></li><li><a href="#">Categorizing Grocery Expenses In Creating a Grocery Budget</a></li></ul></li><li><a href="#">Setting Dietary Goals In Meal Planning</a><ul><li><a href="#">Understanding Nutrition Basics</a><ul><li><a href="#">Understanding Macronutrients</a></li><li><a href="#">Recognizing Food Groups</a></li><li><a href="#">Familiarity with Caloric Intake In Understanding Nutrition Basics</a></li></ul></li><li><a href="#">Establishing Daily Caloric Needs</a></li><li><a href="#">Identifying Personal Dietary Restrictions In Setting Dietary Goals In Meal Planning</a></li></ul></li></ul></li></ul></li>
+      </ul>
+    </div>
+  </body>
+  </html>

@@ -14,7 +14,7 @@ async function getGroqChatCompletion(topic) {
     messages: [
       {
         role: "user",
-        content: prompts.getPrerequisites(topic),
+        content: prompts.getPrerequisites(topic), // make sure to  add branchingfactor into this prompt
       },
     ],
     model: "llama-3.3-70b-versatile",

@@ -1,43 +1,78 @@
+import cliFunctions from "./cli.js";
 export class Tree {
-  constructor(rootTask) {
-    this.tasks = new Map(); // Task -> Set of prerequisites
-    this.root = rootTask;
-    this.addTask(rootTask);
+  constructor(rootSubject) {
+    this.subjects = new Map(); // Subject -> Set of prerequisites
+    this.root = rootSubject;
+    this.addSubject(rootSubject);
   }
 
-  addTask(task) {
-    if (!this.tasks.has(task)) {
-      this.tasks.set(task, new Set());
+  addSubject(subject) {
+    if (!this.subjects.has(subject)) {
+      this.subjects.set(subject, new Set());
     }
   }
 
-  addPrerequisite(task, prerequisite) {
-    // Ensure task and prerequisite are both added
-    this.addTask(task);
-    this.addTask(prerequisite);
+  async buildSubjectTree(maxDepth, numChildren) {
+    // Helper function to create and populate the tree
+    const buildSubtreeRecursive = async (
+      parentSubject,
+      currentDepth,
+      maxDepth
+    ) => {
+      // Base case: stop recursion at max depth
+      if (currentDepth >= maxDepth) {
+        return;
+      }
+      const childrenArray = await cliFunctions.createChildren(parentSubject);
 
-    // Add prerequisite to the task's prerequisites
-    this.tasks.get(task).add(prerequisite);
+      // Create specified number of child subjects
+      for (let j = 0; j < Math.min(numChildren, childrenArray.length); j++) {
+        const childSubject = childrenArray[j];
+
+        // Add the subject to the tree
+        this.addSubject(childSubject);
+
+        // Add prerequisite relationship (child depends on parent)
+        this.addPrerequisite(childSubject, parentSubject);
+
+        // Recursively build the subtree for each child
+        await buildSubtreeRecursive(childSubject, currentDepth + 1, maxDepth);
+      }
+    };
+
+    // Start building from the root
+    await buildSubtreeRecursive(this.root, 0, maxDepth);
+
+    return this; // Return the tree for chaining
   }
 
-  getPrerequisites(task) {
-    return this.tasks.get(task) || new Set();
+  addPrerequisite(subject, prerequisite) {
+    // Ensure subject and prerequisite are both added
+    this.addSubject(subject);
+    this.addSubject(prerequisite);
+
+    // Add prerequisite to the subject's prerequisites
+    this.subjects.get(subject).add(prerequisite);
   }
 
-  getTaskOrderPreorder() {
+  getPrerequisites(subject) {
+    return this.subjects.get(subject) || new Set();
+  }
+
+  getSubjectOrderPreorder() {
     const order = [];
     const visited = new Set();
 
-    const dfs = (task) => {
-      if (visited.has(task)) return;
-      visited.add(task);
-      order.push(task);
+    const dfs = (subject) => {
+      if (visited.has(subject)) return;
+      visited.add(subject);
+      order.push(subject);
 
-      // Traverse all tasks that depend on the current task (pre-order)
-      for (let [dependent, prerequisites] of this.tasks) {
-        if (prerequisites.has(task)) {
-          // Check if this task is a prerequisite
-          dfs(dependent); // Visit the dependent task
+      // Traverse all subjects that depend on the current subject (pre-order)
+      for (let [dependent, prerequisites] of this.subjects) {
+        if (prerequisites.has(subject)) {
+          // Check if this subject is a prerequisite
+          dfs(dependent); // Visit the dependent subject
         }
       }
     };
@@ -46,25 +81,3 @@ export class Tree {
     return order;
   }
 }
-/*
-const graph = new Tree(`JavaScript`);
-
-graph.addPrerequisite("Basics", "JavaScript");
-graph.addPrerequisite("Functions", "JavaScript");
-graph.addPrerequisite("Objects & Prototypes", "JavaScript");
-
-// Level 2
-graph.addPrerequisite("Variables & Data Types", "Basics");
-graph.addPrerequisite("Operators & Expressions", "Basics");
-graph.addPrerequisite("Control Flow (if, loops)", "Basics");
-
-graph.addPrerequisite("Function Declarations & Expressions", "Functions");
-graph.addPrerequisite("Arrow Functions & Scope", "Functions");
-graph.addPrerequisite("Callbacks & Promises", "Functions");
-
-graph.addPrerequisite("Object Literals & this", "Objects & Prototypes");
-graph.addPrerequisite("Prototypes & Inheritance", "Objects & Prototypes");
-graph.addPrerequisite("Classes & ES6 Features", "Objects & Prototypes");
-
-console.log(graph.getTaskOrderPreorder());
-*/
